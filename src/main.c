@@ -3,35 +3,35 @@
 
 #include "gamestate.h"
 
-int initialise (gamestate_t *game);
+gamestate_t *initialise (void);
 int gameloop (gamestate_t *game);
 void cleanup (gamestate_t *game);
 
 int main (int argc, char **argv) {
-    gamestate_t game;
-
-    int initfail = initialise(&game);
-    if (initfail) {
-        return initfail;
+    gamestate_t *game = initialise();
+    if (!game) {
+        return -1;
     }
 
-    int gamefail = gameloop(&game);
-    cleanup(&game);
+    int gamefail = gameloop(game);
+    cleanup(game);
 
     return gamefail;
 }
 
-int initialise (gamestate_t *game) {
-    game = malloc(sizeof(gamestate_t));
+gamestate_t *initialise (void) {
+    gamestate_t *game = malloc(sizeof(gamestate_t));
 
     if (!game) {
-        return 1;
+        return 0;
     }
 
     game->running = 1;
     game->steptime = 1000; // once per second
 
-    return 0;
+    printf("%d, %d\n", game->running, game->steptime);
+
+    return game;
 }
 
 int gameloop (gamestate_t *game) {
