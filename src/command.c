@@ -28,11 +28,10 @@ void enqueuecommand (commandqueue_t *queue, command_t *command) {
     command->next = NULL;
     if (queue->head) {
         queue->tail->next = command;
-        queue->tail = command;
     } else {
         queue->head = command;
-        queue->tail = command;
     }
+    queue->tail = command;
 }
 
 
