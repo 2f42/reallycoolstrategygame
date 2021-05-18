@@ -2,14 +2,21 @@
 #include <stdlib.h>
 
 #include "time.h"
+#include "random.h"
 #include "gamestate.h"
 
-gamestate_t *initialise (void);
+
+#define SEED (0x0213de4208353f2eUL) // my lucky number
+
+
+gamestate_t *newstate (void);
 int gameloop (gamestate_t *game);
 void cleanup (gamestate_t *game);
 
 int main (int argc, char **argv) {
-    gamestate_t *game = initialise();
+    random_seed(SEED);
+
+    gamestate_t *game = newstate();
     if (!game) {
         return -1;
     }
@@ -20,7 +27,7 @@ int main (int argc, char **argv) {
     return gamefail;
 }
 
-gamestate_t *initialise (void) {
+gamestate_t *newstate (void) {
     gamestate_t *game = malloc(sizeof(gamestate_t));
 
     if (!game) {
@@ -46,7 +53,7 @@ int gameloop (gamestate_t *game) {
 
         now = millis();
         if (now - start >= game->steptime) {
-            printf("ayy lmao\n");
+            printf("ayy lmao, %f\n", ranf());
             start = now;
         }
 
