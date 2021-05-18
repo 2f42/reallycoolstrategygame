@@ -4,6 +4,7 @@
 #include "timing.h"
 #include "random.h"
 #include "gamestate.h"
+#include "command.h"
 
 
 #define SEED (0x0213de4208353f2eUL) // my lucky number
@@ -37,7 +38,13 @@ gamestate_t *newstate (void) {
     game->running = 1;
     game->steptime = 1000; // once per second
 
+    game->commands = newcommandqueue();
+
     return game;
+}
+
+static void printerlmao (command_t *command) {
+    printf("%d\n", command->instr);
 }
 
 int gameloop (gamestate_t *game) {
@@ -48,12 +55,16 @@ int gameloop (gamestate_t *game) {
         // process inputs
         // process commands
 
+        processcommands(game->commands, &printerlmao);
+
         // if enough time has passed
             // step the game state
 
         now = millis();
         if (now - start >= game->steptime) {
-            printf("ayy lmao, %f\n", ranf());
+            command_t *newcommand = malloc(sizeof(command_t));
+            newcommand->instr = (int) ranl();
+            enqueuecommand(game->commands, newcommand);
             start = now;
         }
 
@@ -64,5 +75,6 @@ int gameloop (gamestate_t *game) {
 }
 
 void cleanup (gamestate_t *game) {
+    freecommandqueue(game->commands);
     free(game);
 }
