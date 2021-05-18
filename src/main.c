@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sys/time.h"
 #include "gamestate.h"
 
 gamestate_t *initialise (void);
@@ -29,18 +30,25 @@ gamestate_t *initialise (void) {
     game->running = 1;
     game->steptime = 1000; // once per second
 
-    printf("%d, %d\n", game->running, game->steptime);
-
     return game;
 }
 
 int gameloop (gamestate_t *game) {
+    long start = millis();
+    long now;
+
     while (game->running) {
         // process inputs
         // process commands
 
         // if enough time has passed
             // step the game state
+
+        now = millis();
+        if (now - start >= game->steptime) {
+            printf("ayy lmao\n");
+            start = now;
+        }
 
         // render
     }
