@@ -1,13 +1,9 @@
 #include "sys/time.h"
 
-#ifdef __linux__
-
-#include <time.h>
+#include <sys/timeb.h>
 
 long millis (void) {
-    struct timespec timer;
-    clock_gettime(CLOCK_MONOTONIC, &timer);
-    return timer.tv_sec * 1000 + timer.tv_nsec / 1000000;
+    struct timeb timer;
+    ftime(&timer);
+    return timer.time * 1000 + timer.millitm;
 }
-
-#endif
