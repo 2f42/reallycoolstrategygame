@@ -1,6 +1,9 @@
 /build
 /obj
 
+*.sublime-project
+*.sublime-workspace
+
 # -----
 # stolen from https://github.com/github/gitignore/blob/master/C.gitignore
 
