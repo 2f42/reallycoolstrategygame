@@ -26,8 +26,8 @@ int main (int argc, char **argv) {
         return -1;
     }
 
-    int gamefail = gameloop(game);
-    cleanup(game);
+    int gamefail = gameloop();
+    cleanup();
 
     return gamefail;
 }
