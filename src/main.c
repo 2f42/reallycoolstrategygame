@@ -11,8 +11,8 @@
 
 
 gamestate_t *newstate (void);
-int gameloop ();
-void cleanup ();
+int gameloop (void);
+void cleanup (void);
 
 
 static gamestate_t *game;
@@ -30,6 +30,10 @@ int main (int argc, char **argv) {
     cleanup(game);
 
     return gamefail;
+}
+
+gamestate_t *getgamestate (void) {
+    return game;
 }
 
 gamestate_t *newstate (void) {
@@ -55,7 +59,7 @@ static void printerlmao (command_t *command) {
     }
 }
 
-int gameloop () {
+int gameloop (void) {
     long start = millis();
     long now;
 
@@ -81,7 +85,7 @@ int gameloop () {
     return 0;
 }
 
-void cleanup () {
+void cleanup (void) {
     freecommandqueue(game->commands);
     free(game);
 }

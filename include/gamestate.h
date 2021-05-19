@@ -10,4 +10,6 @@ typedef struct gamestate {
     commandqueue_t *commands;
 } gamestate_t;
 
+gamestate_t *getgamestate (void);
+
 #endif
