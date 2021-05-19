@@ -17,6 +17,7 @@ commandqueue_t *newcommandqueue (void);
 void clearcommandqueue (commandqueue_t *queue);
 void freecommandqueue (commandqueue_t *queue);
 
+command_t *makecommand(int instr);
 void enqueuecommand (commandqueue_t *queue, command_t *command);
 
 void processcommands (commandqueue_t *queue, commandhandler handler);

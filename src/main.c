@@ -70,8 +70,7 @@ int gameloop () {
 
         now = millis();
         if (now - start >= game->steptime) {
-            command_t *newcommand = malloc(sizeof(command_t));
-            newcommand->instr = (int) ranl() & 7;
+            command_t *newcommand = makecommand((int) ranl() & 7);
             enqueuecommand(game->commands, newcommand);
             start = now;
         }
