@@ -11,13 +11,17 @@
 
 
 gamestate_t *newstate (void);
-int gameloop (gamestate_t *game);
-void cleanup (gamestate_t *game);
+int gameloop ();
+void cleanup ();
+
+
+static gamestate_t *game;
+
 
 int main (int argc, char **argv) {
     random_seed(SEED);
 
-    gamestate_t *game = newstate();
+    game = newstate();
     if (!game) {
         return -1;
     }
@@ -29,25 +33,29 @@ int main (int argc, char **argv) {
 }
 
 gamestate_t *newstate (void) {
-    gamestate_t *game = malloc(sizeof(gamestate_t));
+    gamestate_t *newgame = malloc(sizeof(gamestate_t));
 
-    if (!game) {
+    if (!newgame) {
         return 0;
     }
 
-    game->running = 1;
-    game->steptime = 1000; // once per second
+    newgame->running = 1;
+    newgame->steptime = 1000; // once per second
 
-    game->commands = newcommandqueue();
+    newgame->commands = newcommandqueue();
 
-    return game;
+    return newgame;
 }
 
 static void printerlmao (command_t *command) {
     printf("%d\n", command->instr);
+
+    if (command->instr == 0) {
+        game->running = 0;
+    }
 }
 
-int gameloop (gamestate_t *game) {
+int gameloop () {
     long start = millis();
     long now;
 
@@ -63,7 +71,7 @@ int gameloop (gamestate_t *game) {
         now = millis();
         if (now - start >= game->steptime) {
             command_t *newcommand = malloc(sizeof(command_t));
-            newcommand->instr = (int) ranl();
+            newcommand->instr = (int) ranl() & 7;
             enqueuecommand(game->commands, newcommand);
             start = now;
         }
@@ -74,7 +82,7 @@ int gameloop (gamestate_t *game) {
     return 0;
 }
 
-void cleanup (gamestate_t *game) {
+void cleanup () {
     freecommandqueue(game->commands);
     free(game);
 }
