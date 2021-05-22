@@ -6,6 +6,7 @@
 typedef struct gamestate {
     int running;
     int steptime;
+    int paused;
 
     commandqueue_t *commands;
 } gamestate_t;

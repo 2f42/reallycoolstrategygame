@@ -23,6 +23,7 @@ gamestate_t *newstate (void) {
 
     newgame->running = 1;
     newgame->steptime = 1000; // once per second
+    newgame->paused = 0;
 
     newgame->commands = newcommandqueue();
 
@@ -48,13 +49,18 @@ int gameloop (void) {
         processcommands(game->commands, &printerlmao);
 
         // if enough time has passed
+        // if the game is unpaused and enough time has passed
             // step the game state
 
-        now = millis();
-        if (now - start >= game->steptime) {
-            command_t *newcommand = makecommand((int) ranl() & 7);
-            enqueuecommand(game->commands, newcommand);
-            start = now;
+        if (!game->paused) {
+            now = millis();
+            if (now - start >= game->steptime) {
+                command_t *newcommand = makecommand((int) ranl() & 7, NULL);
+                enqueuecommand(game->commands, newcommand);
+                start = now;
+            }
+        } else {
+            start = millis();
         }
 
         // render
