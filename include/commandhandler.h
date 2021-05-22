@@ -5,7 +5,7 @@
 
 typedef enum command_type {
 	CMD_END_GAME,
-	CMD_PAUSE_GAME,
+	CMD_PAUSE_GAME, CMD_UNPAUSE_GAME,
 
 	CMD_TOTAL
 } command_type;

@@ -24,7 +24,7 @@ void game_stop (void);
 void game_pause (void);
 void game_unpause (void);
 
-void game_setstep (steptime);
+void game_setstep (int steptime);
 
 
 #endif
