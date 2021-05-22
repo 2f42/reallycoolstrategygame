@@ -5,6 +5,7 @@
 #include "timing.h"
 #include "random.h"
 #include "command.h"
+#include "commandhandler.h"
 
 
 static gamestate_t *game;
@@ -30,14 +31,6 @@ gamestate_t *newstate (void) {
     return newgame;
 }
 
-static void printerlmao (command_t *command) {
-    printf("%d\n", command->instr);
-
-    if (command->instr == 0) {
-        game->running = 0;
-    }
-}
-
 int gameloop (void) {
     long start = millis();
     long now;
@@ -46,9 +39,8 @@ int gameloop (void) {
         // process inputs
         // process commands
 
-        processcommands(game->commands, &printerlmao);
+        processcommands(game->commands, &game_commandhandler);
 
-        // if enough time has passed
         // if the game is unpaused and enough time has passed
             // step the game state
 
