@@ -3,6 +3,7 @@
 
 #include "command.h"
 
+
 typedef struct gamestate {
     int running;
     int steptime;
@@ -16,5 +17,14 @@ gamestate_t **getgamestate (void);
 gamestate_t *newstate (void);
 int gameloop (void);
 void freestate (void);
+
+
+void game_stop (void);
+
+void game_pause (void);
+void game_unpause (void);
+
+void game_setstep (steptime);
+
 
 #endif

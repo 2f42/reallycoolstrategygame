@@ -65,3 +65,20 @@ void freestate (void) {
     freecommandqueue(game->commands);
     free(game);
 }
+
+
+void game_stop (void) {
+    game->running = 0;
+}
+
+void game_pause (void) {
+    game->paused = 1;
+}
+
+void game_unpause (void) {
+    game->paused = 0;
+}
+
+void game_setstep (int steptime) {
+    game->steptime = steptime;
+}
