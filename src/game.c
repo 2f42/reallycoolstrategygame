@@ -32,6 +32,8 @@ gamestate_t *newstate (void) {
 }
 
 int gameloop (void) {
+    int counter = 10;
+
     long start = millis();
     long now;
 
@@ -47,9 +49,16 @@ int gameloop (void) {
         if (!game->paused) {
             now = millis();
             if (now - start >= game->steptime) {
-                command_t *newcommand = makecommand((int) ranl() & 7, NULL);
+                char str[256] = "mmmm";
+                command_t *newcommand = makecommand(CMD_DEBUG, str, sizeof(str));
                 enqueuecommand(game->commands, newcommand);
                 start = now;
+
+                if (!counter--) {
+                    command_t *newcommand = makecommand(CMD_DEBUG, "BYE!", 5);
+                    enqueuecommand(game->commands, newcommand);
+                    makecommandinplace(game->commands, CMD_END_GAME, NULL, 0);
+                }
             }
         } else {
             start = millis();

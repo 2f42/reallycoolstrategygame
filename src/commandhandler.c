@@ -3,8 +3,13 @@
 #include "commandhandler.h"
 #include "game.h"
 
-void game_commandhandler (command_t *command) {  
-	printf("%d\n", command->instr);
+
+/*
+PREPARE FOR A THICC SWITCH STATEMENT
+*/
+
+void game_commandhandler (command_t *command) {
+	//printf("%d\n", command->instr);
 
 	gamestate_t **state = getgamestate();
 
@@ -18,6 +23,8 @@ void game_commandhandler (command_t *command) {
 		case CMD_UNPAUSE_GAME:
 			game_unpause();
 			return;
+		case CMD_DEBUG:
+			printf("%s\n", (char *)command->data);
 		default:
 			return;
 	}
