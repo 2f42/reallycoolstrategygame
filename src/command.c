@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 commandqueue_t *newcommandqueue (void) {
     commandqueue_t *queue = malloc(sizeof(commandqueue_t));
@@ -24,9 +25,13 @@ void freecommandqueue (commandqueue_t *queue) {
 }
 
 
-command_t *makecommand (int instr, int *data) {
+command_t *makecommand (int instr, void *data, int size) {
     command_t *newcommand = malloc(sizeof(command_t));
     newcommand->instr = instr;
+    if (data) {
+        newcommand->data = malloc(size);
+        memcpy(newcommand->data, data, size);
+    }
     return newcommand;
 }
 
@@ -40,12 +45,20 @@ void enqueuecommand (commandqueue_t *queue, command_t *command) {
     queue->tail = command;
 }
 
+void makecommandinplace (commandqueue_t *queue, int instr, void *data, int size) {
+    command_t *newcommand = makecommand(instr, data, size);
+    enqueuecommand(queue, newcommand);
+}
+
 
 void processcommands (commandqueue_t *queue, commandhandler handler) {
     while (queue->head != NULL) {
         handler(queue->head);
         command_t *old = queue->head;
         queue->head = old->next;
+        if (old->data) {
+            free(old->data);
+        }
         free(old);
     }
     queue->head = NULL;
