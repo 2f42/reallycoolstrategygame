@@ -1,6 +1,8 @@
 /build
 /obj
 
+run
+
 *.sublime-project
 *.sublime-workspace
 
