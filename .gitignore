@@ -4,6 +4,7 @@
 run
 openterm.bat
 
+/.vscode
 *.sublime-project
 *.sublime-workspace
 
