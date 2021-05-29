@@ -1,5 +1,8 @@
 /build
+/build-win
 /obj
+
+make-win
 
 run
 openterm.bat
