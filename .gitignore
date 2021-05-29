@@ -2,6 +2,7 @@
 /obj
 
 run
+openterm.bat
 
 *.sublime-project
 *.sublime-workspace
