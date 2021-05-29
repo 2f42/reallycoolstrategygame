@@ -4,14 +4,12 @@
 #include "game.h"
 
 
-/*
-PREPARE FOR A THICC SWITCH STATEMENT
-*/
 
 void game_commandhandler (command_t *command) {
-	//printf("%d\n", command->instr);
 
-	gamestate_t **state = getgamestate();
+	/*
+	PREPARE FOR A THICC SWITCH STATEMENT
+	*/
 
 	switch (command->instr) {
 		case CMD_END_GAME:
@@ -28,4 +26,5 @@ void game_commandhandler (command_t *command) {
 		default:
 			return;
 	}
+
 }

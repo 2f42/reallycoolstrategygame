@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "timing.h"
 #include "random.h"
 #include "game.h"
@@ -8,6 +10,15 @@
 
 
 int main (int argc, char **argv) {
+
+    if (argc > 1) {
+        printf("run with %d args:\n", argc-1);
+        for (int i=1;i<argc;i++) {
+            printf("\t%s\n", argv[i]);
+        }
+        printf("\n");
+    }
+
     random_seed(SEED);
 
     gamestate_t **game;

@@ -11,7 +11,7 @@ commandqueue_t *newcommandqueue (void) {
     return queue;
 }
 
-static void _dequecommand (command_t *command) {
+static void _dequecommand (__attribute__((unused)) command_t *command) {
 
 }
 

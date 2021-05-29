@@ -15,7 +15,7 @@ DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS ?= -Iinclude # $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -std=c99
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic -std=c99
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
