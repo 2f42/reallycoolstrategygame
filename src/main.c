@@ -6,7 +6,7 @@
 #include "command.h"
 
 
-#define SEED (0x0213de4208353f2eUL) // my lucky number
+#define SEED (0x0213de4208353f2eULL) // my lucky number
 
 
 int main (int argc, char **argv) {

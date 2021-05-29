@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-void random_seed (long seed);
+void random_seed (uint64_t seed);
 uint64_t ranl (void);
 double ranf (void);
 

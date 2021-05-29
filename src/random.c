@@ -18,7 +18,7 @@ uint64_t splitmix64 () {
 	return z ^ (z >> 31);
 }
 
-void random_seed (long seed) {
+void random_seed (uint64_t seed) {
     x = seed;
     s[0] = splitmix64();
     s[1] = splitmix64();
