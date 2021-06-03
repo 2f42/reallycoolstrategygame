@@ -25,7 +25,7 @@ void freecommandqueue (commandqueue_t *queue) {
 }
 
 
-command_t *makecommand (int instr, void *data, int size) {
+command_t *makecommand (int instr, void *data, size_t size) {
     command_t *newcommand = malloc(sizeof(command_t));
     newcommand->instr = instr;
     if (data) {
@@ -45,7 +45,7 @@ void enqueuecommand (commandqueue_t *queue, command_t *command) {
     queue->tail = command;
 }
 
-void makecommandinplace (commandqueue_t *queue, int instr, void *data, int size) {
+void makecommandinplace (commandqueue_t *queue, int instr, void *data, size_t size) {
     command_t *newcommand = makecommand(instr, data, size);
     enqueuecommand(queue, newcommand);
 }

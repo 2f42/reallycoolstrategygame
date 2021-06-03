@@ -1,6 +1,8 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
+#include <stddef.h>
+
 typedef struct command {
     int instr;
     void *data;
