@@ -1,5 +1,5 @@
-#ifndef __COMMANDHANDLER_H_
-#define __COMMANDHANDLER_H_
+#ifndef COMMANDHANDLER_H_
+#define COMMANDHANDLER_H_
 
 #include "command.h"
 

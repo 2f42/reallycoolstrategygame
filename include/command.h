@@ -1,5 +1,5 @@
-#ifndef __COMMAND_H_
-#define __COMMAND_H_
+#ifndef COMMAND_H_
+#define COMMAND_H_
 
 typedef struct command {
     int instr;
@@ -18,9 +18,9 @@ commandqueue_t *newcommandqueue (void);
 void clearcommandqueue (commandqueue_t *queue);
 void freecommandqueue (commandqueue_t *queue);
 
-command_t *makecommand (int instr, void *data, int size);
+command_t *makecommand (int instr, void *data, size_t size);
 void enqueuecommand (commandqueue_t *queue, command_t *command);
-void makecommandinplace (commandqueue_t *queue, int instr, void *data, int size);
+void makecommandinplace (commandqueue_t *queue, int instr, void *data, size_t size);
 
 void processcommands (commandqueue_t *queue, commandhandler handler);
 

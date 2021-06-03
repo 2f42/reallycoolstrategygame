@@ -1,5 +1,5 @@
-#ifndef __TIMING_H_
-#define __TIMING_H_
+#ifndef TIMING_H_
+#define TIMING_H_
 
 long millis (void);
 
