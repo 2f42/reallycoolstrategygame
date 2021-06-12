@@ -4,6 +4,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+struct command {
+    int instr;
+    void *data;
+    struct command *next;
+};
+
+struct commandqueue {
+    command_t *head;
+    command_t *tail;
+};
+
 commandqueue_t *newcommandqueue (void) {
     commandqueue_t *queue = malloc(sizeof(commandqueue_t));
     queue->head = NULL;
@@ -48,6 +60,15 @@ void enqueuecommand (commandqueue_t *queue, command_t *command) {
 void makecommandinplace (commandqueue_t *queue, int instr, void *data, size_t size) {
     command_t *newcommand = makecommand(instr, data, size);
     enqueuecommand(queue, newcommand);
+}
+
+
+int getcommandtype (command_t *command) {
+    return command->instr;
+}
+
+void *getcommanddata (command_t *command) {
+    return command->data;
 }
 
 
