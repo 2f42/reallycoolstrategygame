@@ -8,6 +8,15 @@
 #include "commandhandler.h"
 
 
+struct gamestate {
+    int running;
+    int steptime;
+    int paused;
+
+    commandqueue_t *commands;
+};
+
+
 static gamestate_t *game;
 
 

@@ -4,13 +4,7 @@
 #include "command.h"
 
 
-typedef struct gamestate {
-    int running;
-    int steptime;
-    int paused;
-
-    commandqueue_t *commands;
-} gamestate_t;
+typedef struct gamestate gamestate_t;
 
 gamestate_t **getgamestate (void);
 
