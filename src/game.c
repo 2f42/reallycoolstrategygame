@@ -26,7 +26,7 @@ gamestate_t *newstate (void) {
     newgame->steptime = 1000; // once per second
     newgame->paused = 0;
 
-    newgame->commands = newcommandqueue();
+    newgame->commands = commandqueue_new();
 
     return newgame;
 }
@@ -41,7 +41,7 @@ int gameloop (void) {
         // process inputs
         // process commands
 
-        processcommands(game->commands, &game_commandhandler);
+        commandqueue_process(game->commands, &game_commandhandler);
 
         // if the game is unpaused and enough time has passed
             // step the game state
@@ -50,14 +50,14 @@ int gameloop (void) {
             now = millis();
             if (now - start >= game->steptime) {
                 char str[256] = "mmmm";
-                command_t *newcommand = makecommand(CMD_DEBUG, str, sizeof(str));
-                enqueuecommand(game->commands, newcommand);
+                command_t *newcommand = command_new(CMD_DEBUG, str, sizeof(str));
+                commandqueue_enqueue(game->commands, newcommand);
                 start = now;
 
                 if (!counter--) {
-                    command_t *newcommand = makecommand(CMD_DEBUG, "BYE!", 5);
-                    enqueuecommand(game->commands, newcommand);
-                    makecommandinplace(game->commands, CMD_END_GAME, NULL, 0);
+                    command_t *newcommand = command_new(CMD_DEBUG, "BYE!", 5);
+                    commandqueue_enqueue(game->commands, newcommand);
+                    commandqueue_makeinplace(game->commands, CMD_END_GAME, NULL, 0);
                 }
             }
         } else {
@@ -71,7 +71,7 @@ int gameloop (void) {
 }
 
 void freestate (void) {
-    freecommandqueue(game->commands);
+    commandqueue_free(game->commands);
     free(game);
 }
 

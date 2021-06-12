@@ -11,7 +11,7 @@ void game_commandhandler (command_t *command) {
 	PREPARE FOR A THICC SWITCH STATEMENT
 	*/
 
-	switch (getcommandtype(command)) {
+	switch (command_gettype(command)) {
 		case CMD_END_GAME:
 			game_stop();
 			return;
@@ -22,7 +22,7 @@ void game_commandhandler (command_t *command) {
 			game_unpause();
 			return;
 		case CMD_DEBUG:
-			printf("%s\n", (char *)getcommanddata(command));
+			printf("%s\n", (char *)command_getdata(command));
 		default:
 			return;
 	}

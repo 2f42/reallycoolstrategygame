@@ -16,7 +16,7 @@ struct commandqueue {
     command_t *tail;
 };
 
-commandqueue_t *newcommandqueue (void) {
+commandqueue_t *commandqueue_new (void) {
     commandqueue_t *queue = malloc(sizeof(commandqueue_t));
     queue->head = NULL;
     queue->tail = NULL;
@@ -27,17 +27,17 @@ static void _dequecommand (__attribute__((unused)) command_t *command) {
 
 }
 
-void clearcommandqueue (commandqueue_t *queue) {
-    processcommands(queue, &_dequecommand);
+void commandqueue_clear (commandqueue_t *queue) {
+    commandqueue_process(queue, &_dequecommand);
 }
 
-void freecommandqueue (commandqueue_t *queue) {
-    clearcommandqueue(queue);
+void commandqueue_free (commandqueue_t *queue) {
+    commandqueue_clear(queue);
     free(queue);
 }
 
 
-command_t *makecommand (int instr, void *data, size_t size) {
+command_t *command_new (int instr, void *data, size_t size) {
     command_t *newcommand = malloc(sizeof(command_t));
     newcommand->instr = instr;
     if (data) {
@@ -47,7 +47,7 @@ command_t *makecommand (int instr, void *data, size_t size) {
     return newcommand;
 }
 
-void enqueuecommand (commandqueue_t *queue, command_t *command) {
+void commandqueue_enqueue (commandqueue_t *queue, command_t *command) {
     command->next = NULL;
     if (queue->head) {
         queue->tail->next = command;
@@ -57,22 +57,22 @@ void enqueuecommand (commandqueue_t *queue, command_t *command) {
     queue->tail = command;
 }
 
-void makecommandinplace (commandqueue_t *queue, int instr, void *data, size_t size) {
-    command_t *newcommand = makecommand(instr, data, size);
-    enqueuecommand(queue, newcommand);
+void commandqueue_makeinplace (commandqueue_t *queue, int instr, void *data, size_t size) {
+    command_t *newcommand = command_new(instr, data, size);
+    commandqueue_enqueue(queue, newcommand);
 }
 
 
-int getcommandtype (command_t *command) {
+int command_gettype (command_t *command) {
     return command->instr;
 }
 
-void *getcommanddata (command_t *command) {
+void *command_getdata (command_t *command) {
     return command->data;
 }
 
 
-void processcommands (commandqueue_t *queue, commandhandler handler) {
+void commandqueue_process (commandqueue_t *queue, commandhandler handler) {
     while (queue->head != NULL) {
         handler(queue->head);
         command_t *old = queue->head;
